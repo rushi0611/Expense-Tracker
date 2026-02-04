@@ -1,0 +1,202 @@
+1. Library Management
+
+Library Management is used to configure studies, vendors, users, and system structure before data processing begins.
+
+It acts as the foundation of the platform.
+
+Without Library Management, data cannot enter the system.
+
+Purpose
+
+Create studies
+Define primary and related studies
+Configure vendors
+Assign standards
+Manage access
+Maintain hierarchy
+Enable inheritance
+
+Study Management
+
+Each study has
+
+Study ID
+Study Name
+Phase
+Therapeutic Area
+Primary Flag
+Status
+
+Primary Y means main study
+Primary N means related study
+
+Example
+
+ONC MASTER 2026 Primary Y
+ONC INDIA 2026 Primary N
+ONC USA 2026 Primary N
+
+India and USA inherit setup from MASTER.
+
+Vendor Management
+
+Vendors are external data providers.
+
+Examples
+
+Medidata EDC
+Quest Lab
+Oracle IRT
+
+They are linked to studies.
+
+Output
+
+After setup, study is ready for data flow.
+
+2. GMR Global Metadata Repository
+
+GMR stores all metadata required for processing.
+
+It controls how data flows and transforms.
+
+Stores
+
+DEL
+Standards
+Mappings
+Rules
+Functions
+Dependencies
+Lineage
+
+Example
+
+AGE source to AGE target tracked in lineage.
+
+3. DEL Data Element Library
+
+DEL is the master list of all allowed columns.
+
+Every field must be present in DEL.
+
+Contains
+
+Variable name
+Domain
+Type
+Length
+Nullable
+Description
+
+Example
+
+DM Domain
+
+STUDYID Text
+USUBJID Text
+AGE Integer
+SEX Text
+
+AE Domain
+
+AE_TERM Text
+AE_START_DATE Date
+
+Practical Example
+
+Vendor column GENDER
+DEL column SEX
+Mapping converts GENDER to SEX.
+
+4. Standards
+
+Standards select required fields from DEL.
+
+They control which variables are used.
+
+Example
+
+Oncology Standard
+
+DM
+
+STUDYID
+USUBJID
+AGE
+SEX
+
+AE
+
+AE_TERM
+AE_SEVERITY
+
+Versioning
+
+V1 V2 V3 maintained.
+
+5. Data Ingestion
+
+Data Ingestion loads vendor data into RAW layer.
+
+Sources
+
+CSV
+Excel
+API
+Database
+
+Process
+
+Upload
+Validate
+Load
+Log
+Monitor
+
+RAW Layer
+
+Stores original data.
+
+No changes applied.
+
+6. Data Transformation
+
+Transformation converts RAW to standard models.
+
+Flow
+
+RAW to PDL
+PDL to SPDM
+SPDM to GSDM
+GSDM to USDM
+
+Row Level
+
+COPY
+FILTER
+MERGE
+APPEND
+
+Column Level
+
+Direct
+Expression
+Lookup
+Function
+
+Example
+
+SEX M F to 1 2
+DATE format conversion
+SEQ generation
+
+7. OOTB Functions
+
+OOTB means Out Of The Box functions.
+
+These are pre built functions provided by the system.
+
+They reduce manual coding.
+
+They improve consistency.
